@@ -9,7 +9,6 @@
         Height="450" 
         Width="800"
         ResizeMode="NoResize"
-        Topmost="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
@@ -102,45 +101,7 @@
             
         </Style>
 
-        <!--// 启动按钮样式模板 //-->
-
-        <ImageBrush x:Key="LaunchBtn_MouseOver" ImageSource="/White Obsidian Minecraft Launcher;component/Assets/launchBtn_MouseOver.png"/>
-
-        <Style x:Key="Launch_Btn" TargetType="{x:Type Button}">
-
-            <Setter Property="Template">
-
-                <Setter.Value>
-
-                    <ControlTemplate TargetType="{x:Type Button}">
-
-                        <Border x:Name="button"
-                                BorderThickness="0"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True">
-
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-
-                            <Trigger Property="IsMouseOver"
-                                     Value="True">
-
-                                <Setter Property="Background"
-                                        TargetName="button"
-                                        Value="{StaticResource LaunchBtn_MouseOver}"/>
-
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-
-                    </ControlTemplate>
-
-                </Setter.Value>
-
-            </Setter>
-
-        </Style>
+        
 
 
         <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
@@ -254,42 +215,10 @@
 
             <!--// 启动按钮 //-->
 
-            <Grid>
-
-                <Grid.ColumnDefinitions>
-
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="10"/>
-
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="10"/>
-
-                </Grid.RowDefinitions>
-
-                <Button x:Name="LaunchBtn"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Height="60"
-                        Width="60"
-                        BorderThickness="0"
-                        Style="{StaticResource Launch_Btn}" 
-                        Click="LaunchBtn_Click">
-
-                    <Button.Background>
-
-                        <ImageBrush ImageSource="/White Obsidian Minecraft Launcher;component/Assets/launchBtn_default.png"/>
-
-                    </Button.Background>
-
-                </Button>
-
-            </Grid>
+            <Button Height="40"
+                    Width="200"
+                    Content="启动游戏"
+                    Margin="560,370,40,40"/>
 
 
             <!--// 导航面板 //-->
