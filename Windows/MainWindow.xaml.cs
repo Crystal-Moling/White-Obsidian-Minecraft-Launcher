@@ -60,5 +60,18 @@ namespace White_Obsidian_Minecraft_Launcher
         {
             Close();
         }
+
+        private void MainWindow_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void LaunchBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

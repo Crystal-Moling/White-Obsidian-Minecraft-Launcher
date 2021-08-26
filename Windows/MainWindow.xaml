@@ -101,8 +101,46 @@
             </Setter>
             
         </Style>
-        
-        
+
+        <!--// 启动按钮样式模板 //-->
+
+        <ImageBrush x:Key="LaunchBtn_MouseOver" ImageSource="/White Obsidian Minecraft Launcher;component/Assets/launchBtn_MouseOver.png"/>
+
+        <Style x:Key="Launch_Btn" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource LaunchBtn_MouseOver}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
 
 
         <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
@@ -156,7 +194,7 @@
         
     </Window.Resources>
     
-    <Grid>
+    <Grid MouseMove="MainWindow_MouseMove">
         
         <!--// 背景颜色 //-->
 
@@ -184,13 +222,13 @@
 
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="0"/>
 
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
 
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="0"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="*"/>
 
@@ -213,14 +251,53 @@
                 </Button>
                 
             </Grid>
-            
+
+            <!--// 启动按钮 //-->
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="10"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="10"/>
+
+                </Grid.RowDefinitions>
+
+                <Button x:Name="LaunchBtn"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Height="60"
+                        Width="60"
+                        BorderThickness="0"
+                        Style="{StaticResource Launch_Btn}" 
+                        Click="LaunchBtn_Click">
+
+                    <Button.Background>
+
+                        <ImageBrush ImageSource="/White Obsidian Minecraft Launcher;component/Assets/launchBtn_default.png"/>
+
+                    </Button.Background>
+
+                </Button>
+
+            </Grid>
+
 
             <!--// 导航面板 //-->
 
             <Grid x:Name="nav_pnl"
                   HorizontalAlignment="Left"
                   Width="65"
-                  Background="#2E333A">
+                  Background="Transparent">
 
                 <StackPanel x:Name="st_pnl">
 
@@ -264,7 +341,9 @@
                                       Height="30"
                                       Width="30"
                                       BorderThickness="0"
-                                      Style="{StaticResource tb_style}" Unchecked="Tg_Btn_Unchecked" Checked="Tg_Btn_Checked">
+                                      Style="{StaticResource tb_style}" 
+                                      Unchecked="Tg_Btn_Unchecked" 
+                                      Checked="Tg_Btn_Checked">
                             <!--// 切换按钮默认背景图片 //-->
 
                             <ToggleButton.Background>
@@ -392,6 +471,38 @@
 
                                 <ToolTip x:Name="tt_setting"
                                          Content="设置"
+                                         Style="{StaticResource tt_style}"/>
+
+                            </ListViewItem.ToolTip>
+
+                        </ListViewItem>
+
+                        <!--// 账户 //-->
+
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      >
+
+                            <StackPanel Orientation="Horizontal"
+                                        Width="230" 
+                                        Height="30">
+
+                                <Image Source="/White Obsidian Minecraft Launcher;component/Assets/img_user.png"
+                                       Stretch="UniformToFill"
+                                       Margin="12,0,0,0"/>
+
+                                <TextBlock Text="账户"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                            </StackPanel>
+
+                            <!--// 工具提示 //-->
+
+                            <ListViewItem.ToolTip>
+
+                                <ToolTip x:Name="tt_user"
+                                         Content="账户"
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>
