@@ -24,5 +24,41 @@ namespace White_Obsidian_Minecraft_Launcher
         {
             InitializeComponent();
         }
+
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // 设置工具提示可见性
+
+            if (Tg_Btn.IsChecked == true)
+            {
+                tt_home.Visibility = Visibility.Collapsed;
+                tt_setting.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_home.Visibility = Visibility.Visible;
+                tt_setting.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            img_bg.Opacity = 1;
+        }
+
+        private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
+        {
+            img_bg.Opacity = 0.3;
+        }
+
+        private void BG_PreviewMouseLeftButtomDown(object sender, MouseButtonEventArgs e)
+        {
+            Tg_Btn.IsChecked = false;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

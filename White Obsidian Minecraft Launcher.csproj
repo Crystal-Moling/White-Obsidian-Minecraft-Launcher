@@ -102,5 +102,20 @@
   <ItemGroup>
     <Resource Include="Assets\img_home.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\img_setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\TestBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\closeBtn_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\closeBtn_MouseOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tgBtn_MouseOver.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
