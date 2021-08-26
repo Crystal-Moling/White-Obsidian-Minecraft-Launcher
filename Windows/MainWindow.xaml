@@ -8,7 +8,7 @@
         pu:WindowXCaption.Foreground="Transparent"
         pu:WindowXCaption.Height="0"
         mc:Ignorable="d"
-        Title="白曜石启动器" 
+        Title="WhiteObsidianCraftLauncher" 
         Height="450" 
         Width="800"
         ResizeMode="NoResize"
