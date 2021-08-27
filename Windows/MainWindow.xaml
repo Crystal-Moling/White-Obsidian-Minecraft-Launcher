@@ -180,7 +180,8 @@
 
             <Grid Margin="65,0,0,0">
 
-                <Grid x:Name="MenuGrid">
+                <Grid x:Name="MenuGrid"
+                      Visibility="Hidden">
 
                     <Grid.RowDefinitions>
 
@@ -207,7 +208,8 @@
 
                 </Grid>
 
-                <Grid x:Name="SettingGrid">
+                <Grid x:Name="SettingGrid"
+                      Visibility="Hidden">
                     
                     <Grid.RowDefinitions>
 
