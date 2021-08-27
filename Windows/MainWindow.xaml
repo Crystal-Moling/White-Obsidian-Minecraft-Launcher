@@ -13,14 +13,14 @@
         Width="800"
         ResizeMode="NoResize"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Loaded="MainWindow_Loaded">
 
     <Window.Resources>
 
         <!--// 切换按钮样式模板 //-->
 
         <ImageBrush x:Key="tb_mouse_over"
-                    ImageSource="/White Obsidian Minecraft Launcher;component/Assets/tgBtn_MouseOver.png"></ImageBrush>
+                    ImageSource="/Assets/tgBtn_MouseOver.png"></ImageBrush>
 
         <!--// 文字字体样式 //-->
 
@@ -63,10 +63,10 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
 
         </Style>
-        
+
         <!--// 关闭应用按钮样式模板 //-->
 
-        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="/White Obsidian Minecraft Launcher;component/Assets/closeBtn_MouseOver.png"/>
+        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="/Assets/closeBtn_MouseOver.png"/>
 
         <Style x:Key="Close_Btn" TargetType="{x:Type Button}">
 
@@ -80,7 +80,7 @@
                                 BorderThickness="0"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="True">
-                            
+
                         </Border>
 
                         <ControlTemplate.Triggers>
@@ -91,46 +91,6 @@
                                 <Setter Property="Background"
                                         TargetName="button"
                                         Value="{StaticResource CloseBtn_MouseOver}"/>
-
-                            </Trigger>
-                            
-                        </ControlTemplate.Triggers>
-
-                    </ControlTemplate>
-                    
-                </Setter.Value>
-                
-            </Setter>
-            
-        </Style>
-
-        <!--// 启动游戏按钮样式模板 //-->
-
-        <ImageBrush x:Key="LaunchBtn_MouseOver" ImageSource="/White Obsidian Minecraft Launcher;component/Assets/LaunchBtn_MouseOver.png"/>
-
-        <Style x:Key="Launch_Btn" TargetType="{x:Type Button}">
-
-            <Setter Property="Template">
-
-                <Setter.Value>
-
-                    <ControlTemplate TargetType="{x:Type Button}">
-
-                        <Border x:Name="button"
-                                BorderThickness="0"
-                                Background="{TemplateBinding Background}"
-                                SnapsToDevicePixels="True">
-
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-
-                            <Trigger Property="IsMouseOver"
-                                     Value="True">
-
-                                <Setter Property="Background"
-                                        TargetName="button"
-                                        Value="{StaticResource LaunchBtn_MouseOver}"/>
 
                             </Trigger>
 
@@ -157,7 +117,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}"
                                 SnapsToDevicePixels="True">
-                            
+
                         </Border>
 
                         <ControlTemplate.Triggers>
@@ -183,25 +143,25 @@
                                         Value="{StaticResource tb_mouse_over}"/>
 
                             </Trigger>
-                            
+
                         </ControlTemplate.Triggers>
-                        
+
                     </ControlTemplate>
-                    
+
                 </Setter.Value>
-                
+
             </Setter>
-            
+
         </Style>
-        
+
     </Window.Resources>
-    
+
     <Grid MouseMove="MainWindow_MouseMove">
-        
+
         <!--// 背景颜色 //-->
 
         <Grid Background="Black">
-            
+
             <!--// 背景图片 //-->
 
             <Grid x:Name="BG" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtomDown">
@@ -209,13 +169,87 @@
                 <Grid.Background>
 
                     <ImageBrush x:Name="img_bg"
-                                ImageSource="/White Obsidian Minecraft Launcher;component/Assets/Background.jpg"
+                                ImageSource="/Assets/Background.jpg"
                                 Stretch="UniformToFill"/>
 
                 </Grid.Background>
-                
+
             </Grid>
-            
+
+            <!--// 功能 //-->
+
+            <Grid Margin="65,0,0,0">
+
+                <Grid x:Name="MenuGrid">
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="100"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="590"/>
+                        <ColumnDefinition Width="10"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <pu:TextBlockX Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="White Obsidian Craft Launcher"
+                                   MatchText="White Obsidian Craft Launcher" 
+			                       MatchedForeground="White"
+                                   FontSize="40"/>
+
+                </Grid>
+
+                <Grid x:Name="SettingGrid">
+                    
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="100"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="0"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox Height="30"
+                              Grid.Column="1"
+                              Grid.Row="1"
+                              Grid.ColumnSpan="2"
+                              pu:ComboBoxHelper.Header="Java路径 : "
+                              pu:ComboBoxHelper.ItemHeight="30"/>
+
+                </Grid>
+
+                <Grid x:Name="AccountGrid">
+                    
+                    
+                    
+                </Grid>
+
+                <Grid x:Name="VersionGrid">
+                    
+                    
+                    
+                </Grid>
+
+            </Grid>
+
             <!--// 关闭应用按钮 //-->
 
             <Grid>
@@ -246,22 +280,22 @@
 
                     <Button.Background>
 
-                        <ImageBrush ImageSource="/White Obsidian Minecraft Launcher;component/Assets/closeBtn_default.png"/>
+                        <ImageBrush ImageSource="/Assets/closeBtn_default.png"/>
 
                     </Button.Background>
-                    
+
                 </Button>
-                
+
             </Grid>
 
             <!--// 启动按钮 //-->
 
             <Button Height="60"
-            Width="300"
+            Width="200"
+            FontSize="20"
             Content="启动游戏"
-            FontSize="30"
             pu:ButtonHelper.ButtonStyle="Hollow"
-            pu:ButtonHelper.CornerRadius="15" Margin="460,350,40,40"/>
+            pu:ButtonHelper.CornerRadius="15" Margin="560,350,40,40"/>
 
 
             <!--// 导航面板 //-->
@@ -274,7 +308,7 @@
                 <StackPanel x:Name="st_pnl">
 
                     <!--// 菜单切换按钮的网格 //-->
-                    
+
                     <Grid Height="90">
 
                         <!--// 菜单标题文本 //-->
@@ -300,7 +334,7 @@
                                                   Color="White"/>
 
                             </TextBlock.Effect>
-                            
+
                         </TextBlock>
 
                         <!--// 切换按钮 //-->
@@ -320,7 +354,7 @@
 
                             <ToggleButton.Background>
 
-                                <ImageBrush ImageSource="/White Obsidian Minecraft Launcher;component/Assets/tgBtn_default.png" 
+                                <ImageBrush ImageSource="/Assets/tgBtn_default.png" 
                                             Stretch="UniformToFill"/>
 
                             </ToggleButton.Background>
@@ -342,13 +376,13 @@
                                                 BeginTime="0:0:0"
                                                 From="200" To="65"
                                                 Duration="0:0:0.2">
-                                                
+
                                             </DoubleAnimation>
-                                            
+
                                         </Storyboard>
-                                        
+
                                     </BeginStoryboard>
-                                    
+
                                 </EventTrigger>
 
                                 <EventTrigger RoutedEvent="ToggleButton.Checked">
@@ -365,17 +399,17 @@
                                                 Duration="0:0:0.3">
 
                                             </DoubleAnimation>
-                                            
+
                                         </Storyboard>
-                                        
+
                                     </BeginStoryboard>
-                                    
+
                                 </EventTrigger>
-                                
+
                             </ToggleButton.Triggers>
-                            
+
                         </ToggleButton>
-                        
+
                     </Grid>
 
                     <!--// 带有菜单列表项的 ListView //-->
@@ -384,18 +418,19 @@
                               Background="Transparent"
                               BorderBrush="Transparent"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                        
+
                         <!--// 主页 //-->
 
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" 
+                                      MouseEnter="ListViewItem_MouseEnter" PreviewMouseLeftButtonDown="MenuButton_MouseLeftButtonDown"
                                       >
 
                             <StackPanel Orientation="Horizontal"
                                         Width="230" 
                                         Height="30">
 
-                                <Image Source="/White Obsidian Minecraft Launcher;component/Assets/img_home.png"
+                                <Image Source="/Assets/img_home.png"
                                        Stretch="UniformToFill"
                                        Margin="12,0,0,0"/>
 
@@ -414,20 +449,23 @@
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>
-                            
+
                         </ListViewItem>
 
                         <!--// 设置 //-->
 
-                        <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                        <ListViewItem x:Name="SettingButton"
+                                      HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" 
+                                      MouseEnter="ListViewItem_MouseEnter" 
+                                      PreviewMouseLeftButtonDown="SettingButton_MouseLeftButtonDown"
                                       >
 
                             <StackPanel Orientation="Horizontal"
                                         Width="230" 
                                         Height="30">
 
-                                <Image Source="/White Obsidian Minecraft Launcher;component/Assets/img_setting.png"
+                                <Image Source="/Assets/img_setting.png"
                                        Stretch="UniformToFill"
                                        Margin="12,0,0,0"/>
 
@@ -452,14 +490,14 @@
                         <!--// 账户 //-->
 
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" PreviewMouseLeftButtonDown="AccountButton_MouseLeftButtonDown"
                                       >
 
                             <StackPanel Orientation="Horizontal"
                                         Width="230" 
                                         Height="30">
 
-                                <Image Source="/White Obsidian Minecraft Launcher;component/Assets/img_user.png"
+                                <Image Source="/Assets/img_user.png"
                                        Stretch="UniformToFill"
                                        Margin="12,0,0,0"/>
 
@@ -475,6 +513,38 @@
 
                                 <ToolTip x:Name="tt_user"
                                          Content="账户"
+                                         Style="{StaticResource tt_style}"/>
+
+                            </ListViewItem.ToolTip>
+
+                        </ListViewItem>
+
+                        <!--// 版本 //-->
+
+                        <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" PreviewMouseLeftButtonDown="VersionButton_MouseLeftButtonDown"
+                                      >
+
+                            <StackPanel Orientation="Horizontal"
+                                        Width="230" 
+                                        Height="30">
+
+                                <Image Source="/Assets/img_version.png"
+                                       Stretch="UniformToFill"
+                                       Margin="12,0,0,0"/>
+
+                                <TextBlock Text="版本"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                            </StackPanel>
+
+                            <!--// 工具提示 //-->
+
+                            <ListViewItem.ToolTip>
+
+                                <ToolTip x:Name="tt_version"
+                                         Content="版本"
                                          Style="{StaticResource tt_style}"/>
 
                             </ListViewItem.ToolTip>
@@ -501,7 +571,7 @@
                                                     Padding="{TemplateBinding Padding}"
                                                     SnapsToDevicePixels="True">
 
-                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 
@@ -526,26 +596,26 @@
                                                             Value="#404D5B"/>
 
                                                 </MultiTrigger>
-                                                
+
                                             </ControlTemplate.Triggers>
 
                                         </ControlTemplate>
-                                        
+
                                     </Setter.Value>
-                                    
+
                                 </Setter>
-                                
+
                             </Style>
-                            
+
                         </ListView.ItemContainerStyle>
 
                     </ListView>
-                    
+
                 </StackPanel>
-                
+
             </Grid>
-            
+
         </Grid>
-        
+
     </Grid>
 </pu:WindowX>
