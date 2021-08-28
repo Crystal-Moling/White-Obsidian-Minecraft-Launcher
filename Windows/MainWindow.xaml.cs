@@ -12,7 +12,12 @@ namespace White_Obsidian_Minecraft_Launcher
         public MainWindow()
         {
             InitializeComponent();
+            InitializationFunctionGrid();
+            //ShowFirstLauncgGuide();
         }
+
+        public bool IsTg_BtnChecked = false;
+        public bool IsFirstLaunch = true;
 
         public void InitializationFunctionGrid()//初始化功能网格
         {
@@ -22,7 +27,14 @@ namespace White_Obsidian_Minecraft_Launcher
             VersionGrid.Visibility = Visibility.Hidden;
         }
 
-        public bool IsTg_BtnChecked = false;
+        public void ShowFirstLauncgGuide()//初次运行向导
+        {
+            if (IsFirstLaunch == true)
+            {
+                img_bg.Opacity = 0.3;
+                FirstLaunchGuide.Visibility = Visibility.Visible;
+            }
+        }
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -64,8 +76,8 @@ namespace White_Obsidian_Minecraft_Launcher
             if (SettingGrid.Visibility == Visibility.Hidden && AccountGrid.Visibility == Visibility.Hidden && VersionGrid.Visibility == Visibility.Hidden)
             {
                 img_bg.Opacity = 0.3;
-                        MenuGrid.Visibility = Visibility.Visible;
-                        IsTg_BtnChecked = true;
+                MenuGrid.Visibility = Visibility.Visible;
+                IsTg_BtnChecked = true;
             }
         }
 
@@ -90,11 +102,6 @@ namespace White_Obsidian_Minecraft_Launcher
         private void LaunchBtn_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        public void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            InitializationFunctionGrid();
         }
 
         private void MenuButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

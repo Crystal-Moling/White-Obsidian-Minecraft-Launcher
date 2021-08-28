@@ -12,7 +12,7 @@
         Width="800"
         ResizeMode="NoResize"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen" Loaded="MainWindow_Loaded">
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
 
@@ -201,14 +201,6 @@
 
         <Grid Background="Black">
 
-            <!--// 初次启动向导 //-->
-            <Grid x:Name="FirstLaunchGuide"
-                  Visibility="Hidden">
-                
-                
-                
-            </Grid>
-            
             <!--// 背景图片 //-->
 
             <Grid x:Name="BG" PreviewMouseLeftButtonDown="BG_PreviewMouseLeftButtomDown">
@@ -257,7 +249,7 @@
 
                 <Grid x:Name="SettingGrid"
                       Visibility="Hidden">
-                    
+
                     <Grid.RowDefinitions>
 
                         <RowDefinition Height="60"/>
@@ -357,46 +349,8 @@
                               Grid.Row="1"
                               x:Name="VersionCombo"
                               pu:ComboBoxHelper.ItemHeight="30"/>
-                    
+
                 </Grid>
-
-            </Grid>
-
-            <!--// 关闭应用按钮 //-->
-
-            <Grid>
-
-                <Grid.ColumnDefinitions>
-
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="0"/>
-
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-
-                    <RowDefinition Height="0"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="*"/>
-
-                </Grid.RowDefinitions>
-
-                <Button x:Name="CloseBtn"
-                        Grid.Column="1"
-                        Grid.Row="1"
-                        Height="40"
-                        Width="40"
-                        BorderThickness="0"
-                        Style="{StaticResource Close_Btn}" Click="CloseBtn_Click">
-
-                    <Button.Background>
-
-                        <ImageBrush ImageSource="/Assets/closeBtn_default.png"/>
-
-                    </Button.Background>
-
-                </Button>
 
             </Grid>
 
@@ -724,6 +678,115 @@
                     </ListView>
 
                 </StackPanel>
+
+            </Grid>
+
+            <!--// 初次启动向导 //-->
+            <Grid x:Name="FirstLaunchGuide"
+                  Background="Transparent">
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="230"/>
+                    <RowDefinition Height="100"/>
+
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1"
+                      Background="White"
+                      x:Name="LaunchGuide_Step0"
+                      Visibility="Hidden">
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="0"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="0"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="1" 
+                               Grid.Column="1" 
+                               Text="Hello!"
+                               FontSize="50"/>
+
+                    <TextBlock Grid.Row="2" 
+                               Grid.Column="1" 
+                               Text="首次使用，你需要进行一些基本设置"
+                               FontSize="20"/>
+
+                    <Button Height="40"
+                            Width="90"
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            Content="跳过"
+                            FontSize="20"
+                            pu:ButtonHelper.ButtonStyle="Standard"
+                            pu:ButtonHelper.CornerRadius="15"
+                            Background="LightGray"/>
+
+                    <Button Height="40"
+                            Width="90"
+                            Grid.Row="4"
+                            Grid.Column="3"
+                            Content="确认"
+                            FontSize="20"
+                            pu:ButtonHelper.ButtonStyle="Standard"
+                            pu:ButtonHelper.CornerRadius="15"/>
+
+                </Grid>
+
+            </Grid>
+
+            <!--// 关闭应用按钮 //-->
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="0"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Button x:Name="CloseBtn"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Height="40"
+                        Width="40"
+                        BorderThickness="0"
+                        Style="{StaticResource Close_Btn}" Click="CloseBtn_Click">
+
+                    <Button.Background>
+
+                        <ImageBrush ImageSource="/Assets/closeBtn_default.png"/>
+
+                    </Button.Background>
+
+                </Button>
 
             </Grid>
 
