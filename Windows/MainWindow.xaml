@@ -143,7 +143,6 @@
 
         </Style>
 
-
         <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
 
             <Setter Property="Template">
@@ -262,8 +261,9 @@
 
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="0"/>
 
                     </Grid.ColumnDefinitions>
@@ -312,7 +312,8 @@
                         Height="40"
                         Width="40"
                         BorderThickness="0"
-                        Style="{StaticResource AddAccount_Btn}">
+                        Style="{StaticResource AddAccount_Btn}"
+                        Click="AddAccountBtn_Click">
 
                         <Button.Background>
 
@@ -348,7 +349,8 @@
                               Grid.Column="1"
                               Grid.Row="1"
                               x:Name="VersionCombo"
-                              pu:ComboBoxHelper.ItemHeight="30"/>
+                              pu:ComboBoxHelper.ItemHeight="30"
+                              DisplayMemberPath="Id"/>
 
                 </Grid>
 
@@ -361,7 +363,9 @@
             FontSize="20"
             Content="启动游戏"
             pu:ButtonHelper.ButtonStyle="Hollow"
-            pu:ButtonHelper.CornerRadius="15" Margin="560,350,40,40"/>
+            pu:ButtonHelper.CornerRadius="15" 
+            Margin="560,350,40,40"
+            Click="LaunchBtn_Click"/>
 
 
             <!--// 导航面板 //-->
@@ -489,7 +493,8 @@
 
                         <ListViewItem HorizontalAlignment="Left"
                                       Margin="0,0,0,15" 
-                                      MouseEnter="ListViewItem_MouseEnter" PreviewMouseLeftButtonDown="MenuButton_MouseLeftButtonDown"
+                                      MouseEnter="ListViewItem_MouseEnter" 
+                                      PreviewMouseLeftButtonDown="MenuButton_MouseLeftButtonDown"
                                       >
 
                             <StackPanel Orientation="Horizontal"
@@ -556,7 +561,9 @@
                         <!--// 账户 //-->
 
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" PreviewMouseLeftButtonDown="AccountButton_MouseLeftButtonDown"
+                                      Margin="0,0,0,15" 
+                                      MouseEnter="ListViewItem_MouseEnter" 
+                                      PreviewMouseLeftButtonDown="AccountButton_MouseLeftButtonDown"
                                       >
 
                             <StackPanel Orientation="Horizontal"
@@ -588,7 +595,9 @@
                         <!--// 版本 //-->
 
                         <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" PreviewMouseLeftButtonDown="VersionButton_MouseLeftButtonDown"
+                                      Margin="0,0,0,15" 
+                                      MouseEnter="ListViewItem_MouseEnter" 
+                                      PreviewMouseLeftButtonDown="VersionButton_MouseLeftButtonDown"
                                       >
 
                             <StackPanel Orientation="Horizontal"
@@ -681,9 +690,10 @@
 
             </Grid>
 
-            <!--// 初次启动向导 //-->
-            <Grid x:Name="FirstLaunchGuide"
-                  Background="Transparent">
+            <!--// 弹窗 //-->
+            <Grid x:Name="Pop_ups"
+                  Background="Transparent"
+                  Visibility="Collapsed">
 
                 <Grid.RowDefinitions>
 
@@ -695,7 +705,7 @@
 
                 <Grid Grid.Row="1"
                       Background="White"
-                      x:Name="LaunchGuide_Step0"
+                      x:Name="Pop_ups_AddAccount"
                       Visibility="Collapsed">
 
                     <Grid.RowDefinitions>
@@ -721,23 +731,27 @@
 
                     <TextBlock Grid.Row="1" 
                                Grid.Column="1" 
-                               Text="Hello!"
+                               Text="添加账户"
                                FontSize="50"/>
 
-                    <TextBlock Grid.Row="2" 
-                               Grid.Column="1" 
-                               Text="首次使用，你需要进行一些基本设置"
-                               FontSize="20"/>
+                    <TextBox Height="30"
+                             Width="400"
+                             x:Name="AddAccountTextBox"
+                             Grid.Row="3" 
+                             Grid.Column="1"
+                             pu:TextBoxHelper.Watermark="请输入用户名"
+                             pu:TextBoxHelper.CornerRadius="15"/>
 
                     <Button Height="40"
                             Width="90"
                             Grid.Row="4"
                             Grid.Column="2"
-                            Content="跳过"
+                            Content="取消"
                             FontSize="20"
                             pu:ButtonHelper.ButtonStyle="Standard"
                             pu:ButtonHelper.CornerRadius="15"
-                            Background="LightGray"/>
+                            Background="LightGray"
+                            Click="AddAccount_Canceled"/>
 
                     <Button Height="40"
                             Width="90"
@@ -746,7 +760,8 @@
                             Content="确认"
                             FontSize="20"
                             pu:ButtonHelper.ButtonStyle="Standard"
-                            pu:ButtonHelper.CornerRadius="15"/>
+                            pu:ButtonHelper.CornerRadius="15"
+                            Click="AddAccount_Confirmed"/>
 
                 </Grid>
 

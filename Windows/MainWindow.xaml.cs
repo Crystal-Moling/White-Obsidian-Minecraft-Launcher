@@ -1,6 +1,11 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Panuon.UI.Silver;
+using White_Obsidian_Minecraft_Launcher.LaunchCore;
+using KMCCC.Launcher;
+using KMCCC.Authentication;
 
 namespace White_Obsidian_Minecraft_Launcher
 {
@@ -9,33 +14,90 @@ namespace White_Obsidian_Minecraft_Launcher
     /// </summary>
     public partial class MainWindow : WindowX
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            InitializationFunctionGrid();
-            //ShowFirstLauncgGuide();
-        }
-
+        public static LauncherCore Core = LauncherCore.Create();
         public bool IsTg_BtnChecked = false;
         public bool IsFirstLaunch = true;
 
-        public void InitializationFunctionGrid()//初始化功能网格
+        //初始化程序
+        public MainWindow()
         {
-            MenuGrid.Visibility = Visibility.Collapsed;
-            SettingGrid.Visibility = Visibility.Collapsed;
-            AccountGrid.Visibility = Visibility.Collapsed;
-            VersionGrid.Visibility = Visibility.Collapsed;
-            FirstLaunchGuide.Visibility = Visibility.Collapsed;
+            InitializeComponent();
+            //ShowFirstLauncgGuide();
+            InitializationLaunchCore();
+            InitializationFunctionGrid();
         }
 
-        public void ShowFirstLauncgGuide()//初次运行向导
+        //初始化功能网格
+        public void InitializationFunctionGrid()
         {
-            if (IsFirstLaunch == true)
-            {
-                img_bg.Opacity = 0.3;
-                FirstLaunchGuide.Visibility = Visibility.Visible;
-            }
+            MenuGrid.Visibility = SettingGrid.Visibility = AccountGrid.Visibility = VersionGrid.Visibility = Pop_ups_AddAccount.Visibility = Visibility.Collapsed;
         }
+
+        //初始化启动核心
+        public void InitializationLaunchCore()
+        {
+            ToGetJavaList();
+            ToGetVersionList();
+        }
+
+
+
+
+        //取Java路径
+        public void ToGetJavaList()
+        {
+            var jList = GetJavaList();
+            JavaCombo.ItemsSource = jList;
+        }
+
+        public List<string> GetJavaList()
+        {
+            return (List<string>)GetJavaPath.FindJava().ToList();
+        }
+
+        //获取版本列表
+        public void ToGetVersionList()
+        {
+            var versions = Core.GetVersions().ToArray();
+            VersionCombo.ItemsSource = versions;
+            VersionCombo.DisplayMemberPath = "Id";
+        }
+
+        //退出程序
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        //启动游戏
+        private void LaunchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Core.JavaPath = JavaCombo.Text;
+            var ver = (KMCCC.Launcher.Version)VersionCombo.SelectedItem;
+            var result = Core.Launch(new LaunchOptions
+            {
+                Version = ver, //Ver为Versions里你要启动的版本名字
+                MaxMemory = 1024, //最大内存，int类型
+                Authenticator = new OfflineAuthenticator(AccountCombo.Text), //离线启动，ZhaiSoul那儿为你要设置的游戏名
+                //Authenticator = new YggdrasilLogin("邮箱", "密码", true), // 正版启动，最后一个为是否twitch登录
+                Mode = LaunchMode.MCLauncher, //启动模式，这个我会在后面解释有哪几种
+                //Server = new ServerInfo { Address = "服务器IP地址", Port = "服务器端口" }, //设置启动游戏后，自动加入指定IP的服务器，可以不要
+                //Size = new WindowSize { Height = 768, Width = 1280 } //设置窗口大小，可以不要
+            });
+        }
+
+        //初次运行向导
+        //public void ShowFirstLauncgGuide()
+        //{
+        //    if (IsFirstLaunch == true)
+        //    {
+        //        img_bg.Opacity = 0.3;
+        //        FirstLaunchGuide.Visibility = Visibility.Visible;
+        //    }
+        //}
+
+
+
 
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -87,11 +149,6 @@ namespace White_Obsidian_Minecraft_Launcher
             Tg_Btn.IsChecked = false;
         }
 
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void MainWindow_MouseMove(object sender, MouseEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)
@@ -100,29 +157,16 @@ namespace White_Obsidian_Minecraft_Launcher
             }
         }
 
-        private void LaunchBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void MenuButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             InitializationFunctionGrid();
-            if (IsTg_BtnChecked == true)
-            {
-                MenuGrid.Visibility = Visibility.Visible;
-                Tg_Btn.IsChecked = false;
-                img_bg.Opacity = 1;
-            }
-            else
-            {
-                Tg_Btn.IsChecked = false;
-                img_bg.Opacity = 1;
-            }
+            Tg_Btn.IsChecked = false;
+            img_bg.Opacity = 1;
         }
 
         private void SettingButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            ToGetJavaList();
             InitializationFunctionGrid();
             SettingGrid.Visibility = Visibility.Visible;
             Tg_Btn.IsChecked = false;
@@ -139,10 +183,29 @@ namespace White_Obsidian_Minecraft_Launcher
 
         private void VersionButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            ToGetVersionList();
             InitializationFunctionGrid();
             VersionGrid.Visibility = Visibility.Visible;
             Tg_Btn.IsChecked = false;
             img_bg.Opacity = 0.3;
+        }
+
+        private void AddAccountBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Pop_ups.Visibility = Pop_ups_AddAccount.Visibility = Visibility.Visible;
+        }
+
+        private void AddAccount_Canceled(object sender, RoutedEventArgs e)
+        {
+            AddAccountTextBox.Text = "";
+            Pop_ups.Visibility = Pop_ups_AddAccount.Visibility = Visibility.Collapsed;
+        }
+
+        private void AddAccount_Confirmed(object sender, RoutedEventArgs e)
+        {
+            AccountCombo.Items.Add(AddAccountTextBox.Text);
+            AddAccountTextBox.Text = "";
+            Pop_ups.Visibility = Pop_ups_AddAccount.Visibility = Visibility.Collapsed;
         }
     }
 }
