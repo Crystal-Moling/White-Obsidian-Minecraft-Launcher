@@ -263,6 +263,10 @@
   <ItemGroup>
     <Resource Include="Assets\img_version.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\addaccountBtn_default.png" />
+    <Resource Include="Assets\addaccountBtn_MouseOver.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.6.5.2\build\Fody.targets" Condition="Exists('packages\Fody.6.5.2\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

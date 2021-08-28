@@ -22,6 +22,8 @@ namespace White_Obsidian_Minecraft_Launcher
             VersionGrid.Visibility = Visibility.Hidden;
         }
 
+        public bool IsTg_BtnChecked = false;
+
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
             // 设置工具提示可见性
@@ -48,35 +50,22 @@ namespace White_Obsidian_Minecraft_Launcher
             {
                 img_bg.Opacity = 1;
                 MenuGrid.Visibility = Visibility.Hidden;
+                IsTg_BtnChecked = false;
             }
-            if (SettingGrid.Visibility == Visibility.Visible)
+            if (SettingGrid.Visibility == Visibility.Visible && AccountGrid.Visibility == Visibility.Visible && VersionGrid.Visibility == Visibility.Visible)
             {
-                if (AccountGrid.Visibility == Visibility.Visible)
-                {
-                    if (VersionGrid.Visibility == Visibility.Visible)
-                    {
-
-                    }
-                    else 
-                    {
-                        img_bg.Opacity = 1;
-                    }
-                }
+                img_bg.Opacity = 1;
+                IsTg_BtnChecked = false;
             }
         }
 
         private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
         {
-            if (SettingGrid.Visibility == Visibility.Hidden)
+            if (SettingGrid.Visibility == Visibility.Hidden && AccountGrid.Visibility == Visibility.Hidden && VersionGrid.Visibility == Visibility.Hidden)
             {
-                if (AccountGrid.Visibility == Visibility.Hidden)
-                {
-                    if (VersionGrid.Visibility == Visibility.Hidden)
-                    {
-                        img_bg.Opacity = 0.3;
+                img_bg.Opacity = 0.3;
                         MenuGrid.Visibility = Visibility.Visible;
-                    }
-                }
+                        IsTg_BtnChecked = true;
             }
         }
 
@@ -111,9 +100,17 @@ namespace White_Obsidian_Minecraft_Launcher
         private void MenuButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             InitializationFunctionGrid();
-            MenuGrid.Visibility = Visibility.Visible;
-            Tg_Btn.IsChecked = false;
-            img_bg.Opacity = 1;
+            if (IsTg_BtnChecked == true)
+            {
+                MenuGrid.Visibility = Visibility.Visible;
+                Tg_Btn.IsChecked = false;
+                img_bg.Opacity = 1;
+            }
+            else
+            {
+                Tg_Btn.IsChecked = false;
+                img_bg.Opacity = 1;
+            }
         }
 
         private void SettingButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
