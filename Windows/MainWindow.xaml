@@ -220,7 +220,7 @@
             <Grid Margin="65,0,0,0">
 
                 <Grid x:Name="MenuGrid"
-                      Visibility="Hidden">
+                      Visibility="Collapsed">
 
                     <Grid.RowDefinitions>
 
@@ -248,7 +248,7 @@
                 </Grid>
 
                 <Grid x:Name="SettingGrid"
-                      Visibility="Hidden">
+                      Visibility="Collapsed">
 
                     <Grid.RowDefinitions>
 
@@ -279,7 +279,7 @@
                 </Grid>
 
                 <Grid x:Name="AccountGrid"
-                      Visibility="Hidden">
+                      Visibility="Collapsed">
 
                     <Grid.RowDefinitions>
 
@@ -326,7 +326,7 @@
                 </Grid>
 
                 <Grid x:Name="VersionGrid"
-                      Visibility="Hidden">
+                      Visibility="Collapsed">
 
                     <Grid.RowDefinitions>
 
@@ -696,7 +696,7 @@
                 <Grid Grid.Row="1"
                       Background="White"
                       x:Name="LaunchGuide_Step0"
-                      Visibility="Hidden">
+                      Visibility="Collapsed">
 
                     <Grid.RowDefinitions>
 

@@ -21,10 +21,11 @@ namespace White_Obsidian_Minecraft_Launcher
 
         public void InitializationFunctionGrid()//初始化功能网格
         {
-            MenuGrid.Visibility = Visibility.Hidden;
-            SettingGrid.Visibility = Visibility.Hidden;
-            AccountGrid.Visibility = Visibility.Hidden;
-            VersionGrid.Visibility = Visibility.Hidden;
+            MenuGrid.Visibility = Visibility.Collapsed;
+            SettingGrid.Visibility = Visibility.Collapsed;
+            AccountGrid.Visibility = Visibility.Collapsed;
+            VersionGrid.Visibility = Visibility.Collapsed;
+            FirstLaunchGuide.Visibility = Visibility.Collapsed;
         }
 
         public void ShowFirstLauncgGuide()//初次运行向导
@@ -61,7 +62,7 @@ namespace White_Obsidian_Minecraft_Launcher
             if (MenuGrid.Visibility == Visibility.Visible)
             {
                 img_bg.Opacity = 1;
-                MenuGrid.Visibility = Visibility.Hidden;
+                MenuGrid.Visibility = Visibility.Collapsed;
                 IsTg_BtnChecked = false;
             }
             if (SettingGrid.Visibility == Visibility.Visible && AccountGrid.Visibility == Visibility.Visible && VersionGrid.Visibility == Visibility.Visible)
@@ -73,7 +74,7 @@ namespace White_Obsidian_Minecraft_Launcher
 
         private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
         {
-            if (SettingGrid.Visibility == Visibility.Hidden && AccountGrid.Visibility == Visibility.Hidden && VersionGrid.Visibility == Visibility.Hidden)
+            if (SettingGrid.Visibility == Visibility.Collapsed && AccountGrid.Visibility == Visibility.Collapsed && VersionGrid.Visibility == Visibility.Collapsed)
             {
                 img_bg.Opacity = 0.3;
                 MenuGrid.Visibility = Visibility.Visible;
