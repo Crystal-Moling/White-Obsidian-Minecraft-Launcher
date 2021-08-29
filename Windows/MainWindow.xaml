@@ -218,6 +218,8 @@
 
             <Grid Margin="65,0,0,0">
 
+                <!--// 主界面网格 //-->
+                
                 <Grid x:Name="MenuGrid"
                       Visibility="Collapsed">
 
@@ -246,14 +248,19 @@
 
                 </Grid>
 
+                <!--// 设置界面网格 //-->
+                
                 <Grid x:Name="SettingGrid"
-                      Visibility="Collapsed">
+                      Visibility="Visible">
 
                     <Grid.RowDefinitions>
 
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="40"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="40"/>
 
                     </Grid.RowDefinitions>
 
@@ -261,9 +268,8 @@
 
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="0"/>
 
                     </Grid.ColumnDefinitions>
@@ -271,13 +277,34 @@
                     <ComboBox Height="30"
                               Grid.Column="1"
                               Grid.Row="1"
-                              Grid.ColumnSpan="2"
+                              Grid.ColumnSpan="3"
                               x:Name="JavaCombo"
                               pu:ComboBoxHelper.Header="Java路径 : "
-                              pu:ComboBoxHelper.ItemHeight="30"/>
+                              pu:ComboBoxHelper.ItemHeight="30"
+                              Foreground="Gray"/>
+
+                    <TextBox Height="30"
+                             Width="200"
+                             Grid.Row="3"
+                             Grid.Column="3"
+                             x:Name="MaxMemoryTextBox"
+                             pu:TextBoxHelper.Header="最大内存 : "
+                             pu:TextBoxHelper.Watermark="不填默认为1024"
+                             Foreground="Gray"/>
+
+                    <CheckBox Height="30"
+                              Width="200"
+                              Grid.Row="3"
+                              Grid.Column="1"
+                              x:Name="VersionIsolationCheckBox"
+                              pu:CheckBoxHelper.Header="版本隔离 : "
+                              pu:CheckBoxHelper.CheckBoxStyle="Switch2"
+                              Foreground="Gray"/>
 
                 </Grid>
 
+                <!--// 账户界面网格 //-->
+                
                 <Grid x:Name="AccountGrid"
                       Visibility="Collapsed">
 
@@ -326,6 +353,8 @@
 
                 </Grid>
 
+                <!--// 版本界面网格 //-->
+                
                 <Grid x:Name="VersionGrid"
                       Visibility="Collapsed">
 

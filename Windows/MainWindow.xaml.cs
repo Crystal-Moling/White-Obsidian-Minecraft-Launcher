@@ -6,6 +6,7 @@ using Panuon.UI.Silver;
 using White_Obsidian_Minecraft_Launcher.LaunchCore;
 using KMCCC.Launcher;
 using KMCCC.Authentication;
+using System;
 
 namespace White_Obsidian_Minecraft_Launcher
 {
@@ -16,13 +17,14 @@ namespace White_Obsidian_Minecraft_Launcher
     {
         public static LauncherCore Core = LauncherCore.Create();
         public bool IsTg_BtnChecked = false;
-        public bool IsFirstLaunch = true;
+
+
+
 
         //初始化程序
         public MainWindow()
         {
             InitializeComponent();
-            //ShowFirstLauncgGuide();
             InitializationLaunchCore();
             InitializationFunctionGrid();
         }
@@ -46,13 +48,13 @@ namespace White_Obsidian_Minecraft_Launcher
         //取Java路径
         public void ToGetJavaList()
         {
-            var jList = GetJavaList();
+            List<string> jList = GetJavaList();
             JavaCombo.ItemsSource = jList;
         }
 
         public List<string> GetJavaList()
         {
-            return (List<string>)GetJavaPath.FindJava().ToList();
+            return GetJavaPath.FindJava().ToList();
         }
 
         //获取版本列表
@@ -61,6 +63,77 @@ namespace White_Obsidian_Minecraft_Launcher
             var versions = Core.GetVersions().ToArray();
             VersionCombo.ItemsSource = versions;
             VersionCombo.DisplayMemberPath = "Id";
+        }
+
+        //启动游戏变量赋值
+        public void LaunchGame()
+        {
+
+            Core.JavaPath = JavaCombo.Text;
+            var ver = (KMCCC.Launcher.Version)VersionCombo.SelectedItem;
+            int MaxMemoryies;
+            if (string.IsNullOrEmpty(MaxMemoryTextBox.Text))
+            {
+                MaxMemoryies = 1024;
+            }
+            else
+            {
+                MaxMemoryies = Convert.ToInt32(MaxMemoryTextBox.Text);
+            }
+            CoreLauncher(ver, MaxMemoryies, new OfflineAuthenticator(AccountCombo.Text));
+            //CoreLauncher(ver, MaxMemoryies, new YggdrasilLogin("邮箱", "密码", true); // 正版启动，最后一个为是否twitch登录
+        }
+
+        //启动游戏
+        public void CoreLauncher(KMCCC.Launcher.Version ver, int MaxMemories, IAuthenticator Auth)
+        {
+            LaunchResult result;
+            if ((bool)(VersionIsolationCheckBox.IsChecked == true))
+            {
+                result = Core.Launch(new LaunchOptions
+                {
+                    Version = ver,
+                    MaxMemory = MaxMemories,
+                    Authenticator = Auth,
+                    Mode = LaunchMode.MCLauncher
+                    //Server = new ServerInfo { Address = "服务器IP地址", Port = "服务器端口" }, //设置启动游戏后，自动加入指定IP的服务器，可以不要
+                    //Size = new WindowSize { Height = 768, Width = 1280 } //设置窗口大小，可以不要
+                });
+            }
+            else
+            {
+                result = Core.Launch(new LaunchOptions
+                {
+                    Version = ver,
+                    MaxMemory = MaxMemories,
+                    Authenticator = Auth,
+                    //Server = new ServerInfo { Address = "服务器IP地址", Port = "服务器端口" }, //设置启动游戏后，自动加入指定IP的服务器，可以不要
+                    //Size = new WindowSize { Height = 768, Width = 1280 } //设置窗口大小，可以不要
+                });
+            }
+
+            if (!result.Success)
+            {
+                //MessageBox.Show(result.ErrorMessage, result.ErrorType.ToString());
+                switch (result.ErrorType)
+                {
+                    case ErrorType.NoJAVA:
+                        MessageBoxX.Show("你系统的Java有异常，可能你非正常途径删除过Java，请尝试重新安装Java\n详细信息：" + result.ErrorMessage, "错误");
+                        break;
+                    case ErrorType.AuthenticationFailed:
+                        MessageBoxX.Show("正版验证失败！请检查你的账号密码", "账号错误\n详细信息：" + result.ErrorMessage);
+                        break;
+                    case ErrorType.UncompressingFailed:
+                        MessageBoxX.Show("可能的多开或文件损坏，请确认文件完整且不要多开\n如果你不是多开游戏的话，请检查libraries文件夹是否完整\n详细信息：" + result.ErrorMessage, "可能的多开或文件损坏");
+                        break;
+                    default:
+                        MessageBoxX.Show(
+                            result.ErrorMessage + "\n" +
+                            (result.Exception == null ? string.Empty : result.Exception.StackTrace),
+                            "启动错误，请将此窗口截图向开发者寻求帮助");
+                        break;
+                }
+            }
         }
 
         //退出程序
@@ -72,29 +145,8 @@ namespace White_Obsidian_Minecraft_Launcher
         //启动游戏
         private void LaunchBtn_Click(object sender, RoutedEventArgs e)
         {
-            Core.JavaPath = JavaCombo.Text;
-            var ver = (KMCCC.Launcher.Version)VersionCombo.SelectedItem;
-            var result = Core.Launch(new LaunchOptions
-            {
-                Version = ver, //Ver为Versions里你要启动的版本名字
-                MaxMemory = 1024, //最大内存，int类型
-                Authenticator = new OfflineAuthenticator(AccountCombo.Text), //离线启动，ZhaiSoul那儿为你要设置的游戏名
-                //Authenticator = new YggdrasilLogin("邮箱", "密码", true), // 正版启动，最后一个为是否twitch登录
-                Mode = LaunchMode.MCLauncher, //启动模式，这个我会在后面解释有哪几种
-                //Server = new ServerInfo { Address = "服务器IP地址", Port = "服务器端口" }, //设置启动游戏后，自动加入指定IP的服务器，可以不要
-                //Size = new WindowSize { Height = 768, Width = 1280 } //设置窗口大小，可以不要
-            });
+            LaunchGame();
         }
-
-        //初次运行向导
-        //public void ShowFirstLauncgGuide()
-        //{
-        //    if (IsFirstLaunch == true)
-        //    {
-        //        img_bg.Opacity = 0.3;
-        //        FirstLaunchGuide.Visibility = Visibility.Visible;
-        //    }
-        //}
 
 
 
