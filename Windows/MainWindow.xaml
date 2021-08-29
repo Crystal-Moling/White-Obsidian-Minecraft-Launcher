@@ -251,7 +251,7 @@
                 <!--// 设置界面网格 //-->
                 
                 <Grid x:Name="SettingGrid"
-                      Visibility="Visible">
+                      Visibility="Collapsed">
 
                     <Grid.RowDefinitions>
 

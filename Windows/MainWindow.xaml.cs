@@ -15,6 +15,7 @@ namespace White_Obsidian_Minecraft_Launcher
     /// </summary>
     public partial class MainWindow : WindowX
     {
+        string Configfile = ".\\WOCL.ini";
         public static LauncherCore Core = LauncherCore.Create();
         public bool IsTg_BtnChecked = false;
 
@@ -25,6 +26,7 @@ namespace White_Obsidian_Minecraft_Launcher
         public MainWindow()
         {
             InitializeComponent();
+            InitializationConfig();
             InitializationLaunchCore();
             InitializationFunctionGrid();
         }
@@ -40,6 +42,14 @@ namespace White_Obsidian_Minecraft_Launcher
         {
             ToGetJavaList();
             ToGetVersionList();
+        }
+
+        //初始化配置信息
+        public void InitializationConfig()
+        {
+            ReadSettingConfig();
+            ReadAccountConfig();
+            ReadVersionConfig();
         }
 
 
@@ -139,6 +149,7 @@ namespace White_Obsidian_Minecraft_Launcher
         //退出程序
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
+            SaveConfig();
             Close();
         }
 
@@ -146,6 +157,83 @@ namespace White_Obsidian_Minecraft_Launcher
         private void LaunchBtn_Click(object sender, RoutedEventArgs e)
         {
             LaunchGame();
+        }
+
+        //保存配置
+        private void SaveConfig()
+        {
+            //保存启动设置
+            if(JavaCombo.Text != null)//保存JAVA配置
+            {
+                ConfigHelper.INIWriteValue(Configfile, "Setting", "SelectedJavaPATH", JavaCombo.Text);
+            }
+            if(VersionIsolationCheckBox.IsChecked == true)//保存版本隔离配置
+            {
+                ConfigHelper.INIWriteValue(Configfile, "Setting", "VersionIsolation", "True");
+            }
+            else
+            {
+                ConfigHelper.INIWriteValue(Configfile, "Setting", "VersionIsolation", "False");
+            }
+            if (MaxMemoryTextBox.Text != null)//保存内存配置
+            {
+                ConfigHelper.INIWriteValue(Configfile, "Setting", "MaxMemory", MaxMemoryTextBox.Text);
+            }
+
+            //保存账户设置
+            if(AccountCombo.Text != null)
+            {
+                ConfigHelper.INIWriteValue(Configfile, "Account", "SelectedAccount", AccountCombo.Text);
+            }
+
+            //保存版本设置
+            if (VersionCombo.Text != null)
+            {
+                ConfigHelper.INIWriteValue(Configfile, "Version", "SelectedVersion", VersionCombo.Text);
+            }
+        }
+
+        //读取启动配置
+        private void ReadSettingConfig()
+        {
+            try
+            {
+                var SelectedJavaPATH = ConfigHelper.INIGetStringValue(Configfile, "Setting", "SelectedJavaPATH", null);
+                JavaCombo.Text = SelectedJavaPATH;
+                if (ConfigHelper.INIGetStringValue(Configfile, "Setting", "VersionIsolation", null) == "True")
+                {
+                    VersionIsolationCheckBox.IsChecked = true;
+                }
+                else
+                {
+                    VersionIsolationCheckBox.IsChecked = false;
+                }
+                MaxMemoryTextBox.Text = ConfigHelper.INIGetStringValue(Configfile, "Setting", "MaxMemory", null);
+            }
+            catch { }
+            
+        }
+
+        //读取账户配置
+        private void ReadAccountConfig()
+        {
+            try
+            {
+                var Account = ConfigHelper.INIGetStringValue(Configfile, "Account", "SelectedAccount", null);
+                AccountCombo.Items.Add(Account);
+                AccountCombo.Text = Account;
+            }
+            catch { }
+        }
+
+        //读取账户配置
+        private void ReadVersionConfig()
+        {
+            try
+            {
+                VersionCombo.Text = ConfigHelper.INIGetStringValue(Configfile, "Version", "SelectedVersion", null);
+            }
+            catch { }
         }
 
 
